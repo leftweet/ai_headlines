@@ -19,7 +19,7 @@ if st.button("🚀 Generate"):
         st.warning("Please paste an article to analyze.")
     else:
         with st.spinner("Generating with Gemini..."):
-            model = genai.GenerativeModel("gemini-pro")
+            model = genai.GenerativeModel("gemini-2.0-flash")
             prompt = f"""
             Analyze the following sports article and generate:
             - 5 compelling, diverse headline suggestions (SEO-friendly, attention-grabbing).
