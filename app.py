@@ -68,7 +68,7 @@ Here is the article:
                 for h in re.findall(r"\d+\.\s+(.*)", headlines):
                     clean_h = h.strip()
                     if clean_h:
-                    st.code(clean_h, language="")
+                        st.code(clean_h, language="")
 
                 # Display Meta Description
                 st.subheader("📄 Meta Description")
