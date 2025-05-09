@@ -24,26 +24,20 @@ if st.button("🚀 Generate"):
             prompt = f"""
 You are an expert editorial assistant with a deep understanding of digital media, SEO best practices, and audience engagement.
 
-Analyze the following sports article and return the following outputs clearly and separately, each marked with a bold section title:
+Analyze the following sports article and return the following outputs clearly and separately, using numbered sections (1, 2, 3):
 
-1. **Headlines**:
-   - Generate 5 unique, compelling headline suggestions.
-   - Each headline should be under 70 characters.
-   - Use active voice and powerful action words.
-   - Optimize for search intent and shareability.
-   - Avoid clickbait and ambiguity.
+1. Headlines
+- List 5 unique, compelling headline suggestions (under 70 characters each).
+- Use active voice and action-oriented phrasing.
+- Optimize for search intent and engagement.
 
-2. **Meta Description**:
-   - Write a concise meta description under 160 characters.
-   - Clearly summarize the article’s main point.
-   - Include keywords relevant to the article’s content.
-   - Make it engaging and encourage click-throughs.
+2. Meta Description
+- Provide a concise meta description under 160 characters.
+- Summarize the article clearly using keywords and inviting tone.
 
-3. **URL Slug**:
-   - Generate a clean, SEO-friendly URL slug.
-   - Use lowercase letters, hyphens to separate words, and no special characters.
-   - Keep it concise (ideally 4–8 words).
-   - Reflect the article’s core topic or headline.
+3. URL Slug
+- Create an SEO-friendly URL slug (lowercase, hyphenated, no special characters).
+- Keep it short and descriptive (4–8 words).
 
 Here is the article:
 
@@ -54,34 +48,38 @@ Here is the article:
                 response = model.generate_content(prompt)
                 result = response.text
 
-                # Extract sections using regex
-                headlines = re.search(r"\*\*Headlines\*\*\s*([\s\S]*?)\*\*", result)
-                meta_desc = re.search(r"\*\*Meta Description\*\*\s*([\s\S]*?)\*\*", result)
-                url_slug = re.search(r"\*\*URL Slug\*\*\s*([\s\S]*)", result)
+                # Use regex to extract sections based on numeric headers
+                headlines_match = re.search(r"1\.\s*Headlines\s*(.*?)\n2\.", result, re.DOTALL)
+                meta_match = re.search(r"2\.\s*Meta Description\s*(.*?)\n3\.", result, re.DOTALL)
+                slug_match = re.search(r"3\.\s*URL Slug\s*(.*)", result, re.DOTALL)
 
-                if not (headlines and meta_desc and url_slug):
+                if not (headlines_match and meta_match and slug_match):
                     st.warning("Unexpected response format. Displaying raw output:")
                     st.markdown(result)
                     st.stop()
 
-                # Clean and display each section
+                # Extracted sections
+                headlines = headlines_match.group(1).strip()
+                meta_description = meta_match.group(1).strip()
+                url_slug = slug_match.group(1).strip()
+
+                # Display Headlines
                 st.subheader("📰 Headline Suggestions")
-                headline_lines = headlines.group(1).strip().split("\n")
-                for h in headline_lines:
+                for h in headlines.split("\n"):
                     clean_h = h.strip("-•1234567890. ").strip()
                     if clean_h:
                         st.markdown(f"- {clean_h}")
                         st.code(clean_h, language="")
 
+                # Display Meta Description
                 st.subheader("📄 Meta Description")
-                meta = meta_desc.group(1).strip()
-                st.markdown(meta)
-                st.code(meta, language="")
+                st.markdown(meta_description)
+                st.code(meta_description, language="")
 
+                # Display URL Slug
                 st.subheader("🔗 URL Slug")
-                slug = url_slug.group(1).strip()
-                st.markdown(f"`{slug}`")
-                st.code(slug, language="")
+                st.markdown(f"`{url_slug}`")
+                st.code(url_slug, language="")
 
             except Exception as e:
                 st.error(f"An error occurred: {e}")
