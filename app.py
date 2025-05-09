@@ -23,7 +23,8 @@ if st.button("🚀 Generate"):
             prompt = f"""
             Analyze the following sports article and generate:
             - 5 compelling, diverse headline suggestions (SEO-friendly, attention-grabbing).
-            - A concise 2-3 sentence summary of the article.
+            - A concise meta description for the article that is under 160 characters.
+            - A url slug that is SEO-friendly.
 
             Article:
             {article}
