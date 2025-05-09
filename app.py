@@ -21,14 +21,33 @@ if st.button("🚀 Generate"):
         with st.spinner("Generating with Gemini..."):
             model = genai.GenerativeModel("gemini-2.0-flash")
             prompt = f"""
-            Analyze the following sports article and generate:
-            - 5 compelling, diverse headline suggestions (SEO-friendly, attention-grabbing).
-            - A concise meta description for the article that is under 160 characters.
-            - A url slug that is SEO-friendly.
+            You are an expert editorial assistant with a deep understanding of digital media, SEO best practices, and audience engagement.
 
-            Article:
-            {article}
-            """
+            Analyze the following sports article and return the following outputs clearly and separately:
+
+            1. **Headlines**:
+            - Generate 5 unique, compelling headline suggestions.
+           - Each headline should be under 70 characters.
+           - Use active voice and powerful action words.
+           - Optimize for search intent and shareability.
+           - Avoid clickbait and ambiguity.
+
+            2. **Meta Description**:
+           - Write a concise meta description under 160 characters.
+           - Clearly summarize the article’s main point.
+           - Include keywords relevant to the article’s content.
+           - Make it engaging and encourage click-throughs.
+
+            3. **URL Slug**:
+           - Generate a clean, SEO-friendly URL slug.
+           - Use lowercase letters, hyphens to separate words, and no special characters.
+           - Keep it concise (ideally 4–8 words).
+           - Reflect the article’s core topic or headline.
+
+            Here is the article:
+
+            \"\"\"{article}\"\"\"
+"""
             try:
                 response = model.generate_content(prompt)
                 result = response.text
