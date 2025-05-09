@@ -24,18 +24,18 @@ if st.button("🚀 Generate"):
             prompt = f"""
 You are an expert editorial assistant with a deep understanding of digital media, SEO best practices, and audience engagement.
 
-Analyze the following sports article and return the following outputs clearly and separately, using numbered sections (1, 2, 3):
+Analyze the following sports article and return the following outputs using **bolded numbered section titles**:
 
-1. Headlines
+**1. Headlines**
 - List 5 unique, compelling headline suggestions (under 70 characters each).
 - Use active voice and action-oriented phrasing.
 - Optimize for search intent and engagement.
 
-2. Meta Description
+**2. Meta Description**
 - Provide a concise meta description under 160 characters.
 - Summarize the article clearly using keywords and inviting tone.
 
-3. URL Slug
+**3. URL Slug**
 - Create an SEO-friendly URL slug (lowercase, hyphenated, no special characters).
 - Keep it short and descriptive (4–8 words).
 
@@ -48,10 +48,10 @@ Here is the article:
                 response = model.generate_content(prompt)
                 result = response.text
 
-                # Use regex to extract sections based on numeric headers
-                headlines_match = re.search(r"1\.\s*Headlines\s*(.*?)\n2\.", result, re.DOTALL)
-                meta_match = re.search(r"2\.\s*Meta Description\s*(.*?)\n3\.", result, re.DOTALL)
-                slug_match = re.search(r"3\.\s*URL Slug\s*(.*)", result, re.DOTALL)
+                # Use bolded section titles in regex
+                headlines_match = re.search(r"\*\*1\. Headlines\*\*\s*(.*?)\s*\*\*2\.", result, re.DOTALL)
+                meta_match = re.search(r"\*\*2\. Meta Description\*\*\s*(.*?)\s*\*\*3\.", result, re.DOTALL)
+                slug_match = re.search(r"\*\*3\. URL Slug\*\*\s*(.*)", result, re.DOTALL)
 
                 if not (headlines_match and meta_match and slug_match):
                     st.warning("Unexpected response format. Displaying raw output:")
@@ -65,8 +65,8 @@ Here is the article:
 
                 # Display Headlines
                 st.subheader("📰 Headline Suggestions")
-                for h in headlines.split("\n"):
-                    clean_h = h.strip("-•1234567890. ").strip()
+                for h in re.findall(r"\d+\.\s+(.*)", headlines):
+                    clean_h = h.strip()
                     if clean_h:
                         st.markdown(f"- {clean_h}")
                         st.code(clean_h, language="")
