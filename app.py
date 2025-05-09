@@ -4,7 +4,7 @@ import google.generativeai as genai
 # Page config
 st.set_page_config(page_title="AI Headline & Summary Generator", layout="centered")
 
-st.title("🏈 AI-Powered Headline & Summary Generator")
+st.title("AI-Powered Headline & Meta Description Generator")
 st.markdown("Paste a sports article below to get headline suggestions and a concise summary optimized for engagement and SEO.")
 
 # Input text
@@ -32,7 +32,7 @@ if st.button("🚀 Generate"):
             try:
                 response = model.generate_content(prompt)
                 result = response.text
-                st.subheader("📰 Suggestions")
+                st.subheader("Suggestions")
                 st.markdown(result)
             except Exception as e:
                 st.error(f"An error occurred: {e}")
