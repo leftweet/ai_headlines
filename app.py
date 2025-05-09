@@ -63,13 +63,12 @@ Here is the article:
                 meta_description = meta_match.group(1).strip()
                 url_slug = slug_match.group(1).strip()
 
-                # Display Headlines
-                st.subheader("📰 Headline Suggestions")
+            # Display Headlines
+            st.subheader("📰 Headline Suggestions")
                 for h in re.findall(r"\d+\.\s+(.*)", headlines):
                     clean_h = h.strip()
                     if clean_h:
-                        st.markdown(f"- {clean_h}")
-                        st.code(clean_h, language="")
+                    st.code(clean_h, language="")
 
                 # Display Meta Description
                 st.subheader("📄 Meta Description")
