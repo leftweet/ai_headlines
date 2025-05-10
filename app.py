@@ -73,7 +73,7 @@ Here is the article:
                 # Display Headlines
                 st.subheader("Headline Suggestions")
                 for h in re.findall(r"\d+\.\s+(.*)", headlines):
-                    clean_h = h.strip()
+                    clean_h = strip_markdown(h.strip())
                     if clean_h:
                         st.code(clean_h, language="")
 
