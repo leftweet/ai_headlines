@@ -80,7 +80,10 @@ Here is the article:
                 # Display Meta Description
                 st.subheader("Meta Description")
                 st.markdown(meta_description)
-                st.code(meta_description, language="")
+                st.markdown(
+                    f"<div style='background-color:#1e1e1e;padding:10px;border-radius:5px;color:#fff;font-family:monospace;white-space:pre-wrap;'>{meta_description}</div>",
+                    unsafe_allow_html=True
+                )
 
                 # Display URL Slug
                 st.subheader("URL Slug")
