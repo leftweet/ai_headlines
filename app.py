@@ -3,19 +3,19 @@ import google.generativeai as genai
 import re
 
 # Page config
-st.set_page_config(page_title="AI Headline & Summary Generator", layout="centered")
+st.set_page_config(page_title="AI SEO Tag Generator", layout="centered")
 
-st.title("🧠 AI-Powered Headline & Meta Description Generator")
+st.title("AI SEO Tag Generator")
 st.markdown("Paste a sports article below to get headline suggestions, a concise meta description, and a clean URL slug optimized for SEO.")
 
 # Input text
-article = st.text_area("✍️ Article Text", height=300)
+article = st.text_area("Article Text", height=300)
 
 # Load Gemini API key from Streamlit secrets
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
 # Generate button
-if st.button("🚀 Generate"):
+if st.button("Generate SEO Tags"):
     if not article.strip():
         st.warning("Please paste an article to analyze.")
     else:
@@ -64,19 +64,19 @@ Here is the article:
                 url_slug = slug_match.group(1).strip()
 
                 # Display Headlines
-                st.subheader("📰 Headline Suggestions")
+                st.subheader("Headline Suggestions")
                 for h in re.findall(r"\d+\.\s+(.*)", headlines):
                     clean_h = h.strip()
                     if clean_h:
                         st.code(clean_h, language="")
 
                 # Display Meta Description
-                st.subheader("📄 Meta Description")
+                st.subheader("Meta Description")
                 st.markdown(meta_description)
                 st.code(meta_description, language="")
 
                 # Display URL Slug
-                st.subheader("🔗 URL Slug")
+                st.subheader("URL Slug")
                 st.markdown(f"`{url_slug}`")
                 st.code(url_slug, language="")
 
