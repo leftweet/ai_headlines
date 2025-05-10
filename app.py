@@ -2,6 +2,13 @@ import streamlit as st
 import google.generativeai as genai
 import re
 
+def strip_markdown(text):
+    """Remove common Markdown formatting like bold and italics."""
+    text = re.sub(r"\*\*(.*?)\*\*", r"\1", text)  # bold
+    text = re.sub(r"\*(.*?)\*", r"\1", text)      # italics with *
+    text = re.sub(r"_(.*?)_", r"\1", text)        # italics with _
+    return text.strip()
+
 # Page config
 st.set_page_config(page_title="AI SEO Tag Generator", layout="centered")
 
