@@ -80,7 +80,7 @@ Here is the article:
                 # Display Meta Description
                 st.subheader("Meta Description")
                 st.markdown(meta_description)
-                st.text_area("", meta_description, height=100, label_visibility="collapsed")
+                st.code(meta_description, language="")
 
                 # Display URL Slug
                 st.subheader("URL Slug")
