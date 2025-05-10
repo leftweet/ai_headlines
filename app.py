@@ -65,10 +65,10 @@ Here is the article:
 
                 # Display Headlines
                 st.subheader("📰 Headline Suggestions")
-                    for h in re.findall(r"\d+\.\s+(.*)", headlines):
-                        clean_h = h.strip()
-                        if clean_h:
-                            st.code(clean_h, language="")
+                for h in re.findall(r"\d+\.\s+(.*)", headlines):
+                    clean_h = h.strip()
+                    if clean_h:
+                    st.code(clean_h, language="")
 
                 # Display Meta Description
                 st.subheader("📄 Meta Description")
